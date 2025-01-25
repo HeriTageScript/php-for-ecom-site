@@ -2,17 +2,17 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-include '../db.php'; // Include the database connection
+include '../../db.php'; // Include the database connection
 
 // Ensure the connection was successful
-if (!$conn) {
+if (!$connection) {
     die("Database connection failed.");
 }
 
 $sql = "SELECT id, name, description, price, image_path FROM products";
 
 // Run the query using pg_query for PostgreSQL
-$result = pg_query($conn, $sql);
+$result = pg_query($connection, $sql);
 
 if (!$result) {
     die("Error in SQL query: " . pg_last_error($conn));
