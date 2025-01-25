@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-include '../db.php'; // Include the database connection
+include '../../db.php'; // Include the database connection
 
 $sql = "SELECT id, name, description, price, image_path FROM products";
 $result = $conn->query($sql);
