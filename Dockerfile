@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libwebp-dev \
-    libpq-dev \
+    libpq-dev \ # Required for PostgreSQL
     && docker-php-ext-install pdo_mysql mysqli zip mbstring exif pcntl bcmath gd \
+    && docker-php-ext-install pgsql pdo_pgsql \ # Install PostgreSQL extensions
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
