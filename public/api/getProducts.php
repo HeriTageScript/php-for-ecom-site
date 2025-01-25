@@ -2,17 +2,26 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-include '../../db.php'; // Include the database connection
+include '../db.php'; // Include the database connection
+
+// Ensure the connection was successful
+if (!$conn) {
+    die("Database connection failed.");
+}
 
 $sql = "SELECT id, name, description, price, image_path FROM products";
-$result = $connection->query($sql);
+
+// Run the query using pg_query for PostgreSQL
+$result = pg_query($conn, $sql);
+
+if (!$result) {
+    die("Error in SQL query: " . pg_last_error($conn));
+}
 
 $products = [];
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $products[] = $row; // Add each product to the array
-    }
+while ($row = pg_fetch_assoc($result)) {
+    $products[] = $row; // Add each product to the array
 }
 
 // Return the data as JSON
